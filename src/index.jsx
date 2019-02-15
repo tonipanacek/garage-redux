@@ -7,20 +7,22 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
+import CarsIndex from './containers/cars_index';
+
 import '../assets/stylesheets/application.scss';
 
 const reducers = combineReducers({
-  // key: reducer
+  cars: carsReducer
 });
 
 const middlewares = applyMiddleware(reduxPromise, logger);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers, {}, middlewares)}>
+  <Provider store={createStore(reducers, initialState, middlewares)}>
     <Router history={history}>
       <Switch>
-        TODO
+        <Route path="/" component={CarsIndex}/>
       </Switch>
     </Router>
   </Provider>,
