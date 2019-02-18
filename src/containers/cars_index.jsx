@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { fetchCars } from '../actions';
 
 class CarsIndex extends Component {
-  renderCars() {
-    return this.props.cars.map((car) => {
-      return(
-        <Link to={`/cars/${car.id}`} key={car.id}>
-        <div className="car-smallad">
-          <div className="car-details">
-            <h3>{car.brand} {car.model}</h3>
-            <h4>Owner: {car.owner}</h4>
-          </div>
-          </div>
-        </Link>
-      )
-    })
+  componentDidMount() {
+    this.props.fetchCars();
   }
 
   render() {
@@ -28,7 +19,18 @@ class CarsIndex extends Component {
         </div>
         <div className="list-container">
           <ul>
-            {this.renderCars()}
+            {this.props.cars.map((car) => {
+              return(
+                <Link to={`/cars/${car.id}`} key={car.id}>
+                <div className="car-smallad">
+                  <div className="car-details">
+                    <h3>{car.brand} {car.model}</h3>
+                    <h4>Owner: {car.owner}</h4>
+                  </div>
+                  </div>
+                </Link>
+              )
+            })}
           </ul>
         </div>
       </div>
@@ -36,8 +38,12 @@ class CarsIndex extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchCars }, dispatch);
+}
+
 function mapStateToProps(state) {
   return { cars: state.cars }
 }
 
-export default connect(mapStateToProps)(CarsIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(CarsIndex);
