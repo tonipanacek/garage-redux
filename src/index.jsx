@@ -7,8 +7,9 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
-import carsReducer from './reducers/cars_reducer'
 import CarsIndex from './containers/cars_index';
+
+import carsReducer from './reducers/cars_reducer.js';
 
 import '../assets/stylesheets/application.scss';
 
@@ -17,7 +18,7 @@ const garageName = "Big Tony's Garage";
 const initalState = {
   garage: garageName,
   cars: []
-}
+};
 
 const reducers = combineReducers({
   garage: (state= null, action) => state,
@@ -33,7 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route path="/" component={CarsIndex}/>
+        <Route path="/" exact component={CarsIndex}/>
       </Switch>
     </Router>
   </Provider>,

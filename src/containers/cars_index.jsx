@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+
 import { fetchCars } from '../actions';
 
 class CarsIndex extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchCars();
   }
 
